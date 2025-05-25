@@ -180,7 +180,7 @@
             <input type="radio" id="star1" name="rating" value="1">
             <label for="star1">★</label>
         </div>
-        <textarea id="comments" placeholder="Write your feedback here..." style="display:block;"></textarea>
+        <textarea id="comments" placeholder="Write your feedback here..."></textarea>
         <button id="submitBtn" disabled>Submit</button>
         <div class="feedback-message" id="feedbackMessage"></div>
     </div>
@@ -238,7 +238,7 @@
 
                 const selectedRating = document.querySelector("input[name='rating']:checked")?.value;
 
-               
+                commentsBox.style.display = selectedRating <= 3 ? "block" : "none";
             });
         });
 
@@ -250,16 +250,16 @@
             const selectedRating = document.querySelector("input[name='rating']:checked")?.value;
             const comments = commentsBox.value;
 
-            saveFeedback(selectedRating, comments || "No comments.");
-            feedbackMessage.textContent = "Thank you for your feedback!";
-            feedbackMessage.style.display = "block";
-            disableInteraction();
+            if (selectedRating <= 3) {
+                saveFeedback(selectedRating, comments);
+                feedbackMessage.textContent = "Thank you for your feedback!";
+                feedbackMessage.style.display = "block";
+                disableInteraction();
+            } else {
+                window.location.href = "https://g.page/r/CQTTFoaALEdlEAI/review";
+            }
+        });
 
-         if (selectedRating > 3) {
-         setTimeout(() => {
-        window.location.href = "https://g.page/r/CQTTFoaALEdlEAI/review";
-    }, 1500); // Wait 1.5 seconds so feedback is saved before redirect
-}
         // Save feedback to localStorage
         function saveFeedback(rating, comments) {
             const feedback = JSON.parse(localStorage.getItem("feedback")) || [];
