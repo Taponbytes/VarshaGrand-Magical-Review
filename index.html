@@ -251,7 +251,7 @@
             const comments = commentsBox.value;
 
             if (selectedRating <= 3) {
-                saveFeedback(selectedRating, comments);
+                //saveFeedback(selectedRating, comments);
                 feedbackMessage.textContent = "Thank you for your feedback!";
                 feedbackMessage.style.display = "block";
                 disableInteraction();
@@ -268,12 +268,21 @@
         }
 
         // Load feedback from localStorage
-        function loadFeedback() {
-            const feedback = JSON.parse(localStorage.getItem("feedback")) || [];
-            feedbackList.innerHTML = feedback.map(
-                fb => `<div class="feedback-item"><p><strong>Rating:</strong> ${fb.rating}</p><p><strong>Comments:</strong> ${fb.comments}</p></div>`
-            ).join("");
-        }
+       async function loadFeedback() {
+    const response = await fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vROYTdUkbB44B8C9N8_OE0zAZ-28KYdZ613SgjisFpJ5cVVmiS-6CUdWs61NsRj_V0R4ZcmzbjXnOv9/pub?output=csv');
+    const data = await response.text();
+    const rows = data.split('\n').slice(1); // Skip header
+
+    feedbackList.innerHTML = rows.map(row => {
+        const [rating, comments] = row.split(',');
+        return `
+            <div class="feedback-item">
+                <p><strong>Rating:</strong> ${rating}</p>
+                <p><strong>Comments:</strong> ${comments}</p>
+            </div>
+        `;
+    }).join('');
+}
 
         // Disable further interaction after submission
         function disableInteraction() {
