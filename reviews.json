@@ -1,1 +1,14 @@
-
+[
+  {
+    "rating": 5,
+    "comments": "Amazing food and friendly staff!"
+  },
+  {
+    "rating": 4,
+    "comments": "Very comfortable rooms."
+  },
+  {
+    "rating": 3,
+    "comments": "Average experience, can improve cleanliness."
+  }
+]
