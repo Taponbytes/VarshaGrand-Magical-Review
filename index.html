@@ -1,342 +1,285 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Rate Us</title>
-  <style>
-    /* Your existing CSS remains unchanged */
-    body {
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      animation: changeBackground 10s infinite;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rate Us</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: changeBackground 10s infinite;  
+        }
+       
+                
+        @keyframes changeBackground {
+            0% { background-color: #f0f0f0; }
+            25% { background-color: #acd4e6; }
+            50% { background-color: #c7bc92; }
+            75% { background-color: #ceddb0; }
+            100% { background-color: #f0f0f0; }
+        }
+        
+        .view-selector-wrapper {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
 
-    @keyframes changeBackground {
-      0% { background-color: #f0f0f0; }
-      25% { background-color: #acd4e6; }
-      50% { background-color: #c7bc92; }
-      75% { background-color: #ceddb0; }
-      100% { background-color: #f0f0f0; }
-    }
+        .view-selector-wrapper img {
+            width: 30px;
+            height: 30px;
+            margin-right: 5px;
+        }
 
-    .view-selector-wrapper {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-    }
+        #viewSelector {
+            display: none;
+            position: absolute;
+            top: 50px;
+            left: 10px;
+            z-index: 1;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px
+        }
+        .container {
+            max-width: 400px;
+            width: 100%;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
 
-    .view-selector-wrapper img {
-      width: 30px;
-      height: 30px;
-      margin-right: 5px;
-    }
+        h1 {
+            text-align: center; /* Common style applied to all h1 elements */
+            margin: 10px 0; /* Adds spacing between headings */
+        }
 
-    #viewSelector {
-      display: none;
-      position: absolute;
-      top: 50px;
-      left: 10px;
-      z-index: 1;
-      padding: 5px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      font-size: 16px
-    }
+        h1:first-of-type {
+            color: rgb(253, 193, 15); /* yellow for the first heading */
+            font-size: 2.5rem; /* Makes it slightly larger for emphasis */
+            font-weight: bold; /* Ensures it stands out */
+        }
 
-    .container {
-      max-width: 400px;
-      width: 100%;
-      background: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    h1 {
-      text-align: center;
-      margin: 10px 0;
-    }
-
-    h1:first-of-type {
-      color: rgb(253, 193, 15);
-      font-size: 2.5rem;
-      font-weight: bold;
-    }
-
-    h1:nth-of-type(2) {
-      color: rgb(21, 21, 21);
-      font-size: 2rem;
-      font-weight: normal;
-    }
-
-    .rating {
-      display: flex;
-      justify-content: center;
-      direction: rtl;
-      gap: 10px;
-      margin: 20px 0;
-    }
-
-    .rating input {
-      display: none;
-    }
-
-    .rating label {
-      font-size: 50px;
-      color: #ccc;
-      cursor: pointer;
-    }
-
-    .rating input:checked ~ label,
-    .rating label:hover,
-    .rating label:hover ~ label {
-      color: rgb(255, 219, 14);
-    }
-
-    textarea {
-      font-size: 18px;
-      width: 90%;
-      height: 100px;
-      margin-top: 10px;
-      padding: 10px;
-      border: 2px solid #dddcdc;
-      border-radius: 5px;
-      resize: none;
-      display: none;
-    }
-
-    input[type="text"] {
-      width: 90%;
-      padding: 10px;
-      font-size: 16px;
-      margin-bottom: 10px;
-    }
-
-    button {
-      display: block;
-      width: 100%;
-      padding: 10px;
-      margin-top: 20px;
-      background-color: #4d941e;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    button:disabled {
-      background-color: #ccc;
-    }
-
-    #reviewSection {
-      display: none;
-    }
-
-    #feedbackList {
-      margin-top: 20px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      padding: 10px;
-      max-height: 300px;
-      overflow-y: auto;
-    }
-
-    .feedback-item {
-      font-size: 18px;
-      border-bottom: 1px solid #ddd;
-      padding: 15px 0;
-    }
-
-    .feedback-item:last-child {
-      border-bottom: none;
-    }
-
-    .feedback-item p {
-      margin: 0;
-      line-height: 2;
-    }
-
-    #loginForm {
-      margin-top: 20px;
-      text-align: center;
-    }
-
-    #loginForm input {
-      width: 80%;
-      padding: 10px;
-      font-size: 18px;
-      margin-bottom: 10px;
-    }
-  </style>
+        h1:nth-of-type(2) {
+            color: rgb(21, 21, 21); /* Black for the second heading */
+            font-size: 2rem; /* Slightly smaller than the first heading */
+            font-weight: normal; /* Standard weight for secondary heading */
+        }
+                
+        .rating {
+            display: flex;
+            justify-content: center;
+            direction: rtl;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .rating input {
+            display: none;
+        }
+        .rating label {
+            font-size: 50px;
+            color: #ccc;
+            cursor: pointer;
+        }
+        .rating input:checked ~ label,
+        .rating label:hover,
+        .rating label:hover ~ label {
+            color: rgb(255, 219, 14);
+        }
+        textarea {
+            font-size: 18px;
+            width: 90%;
+            height: 100px;
+            margin-top: 10px;
+            padding: 10px;
+            border: 2px solid #dddcdc;
+            border-radius: 5px;
+            resize: none;
+            display: none;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #4d941e;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:disabled {
+            background-color: #ccc;
+        }
+        #reviewSection {
+            display: none;
+        }
+        #feedbackList {
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .feedback-item {
+            font-size: 18px;
+            border-bottom: 1px solid #ddd;
+            padding: 15px 0;
+        }
+        .feedback-item:last-child {
+            border-bottom: none;
+        }
+        .feedback-item p {
+            margin: 0;
+            line-height: 2;
+        }
+        #loginForm {
+            margin-top: 20px;
+            text-align: center;
+        }
+        #loginForm input {
+            width: 80%;
+            padding: 10px;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
-<div class="view-selector-wrapper">
-  <img src="images/icon.png" alt="Menu" id="menuIcon" />
-  <select id="viewSelector">
-    <option value="main">Main</option>
-    <option value="review">Review</option>
-  </select>
-</div>
+    <div class="view-selector-wrapper">
+        <img src="images/icon.png" alt="Menu" id="menuIcon">
+        <select id="viewSelector">
+            <option value="main">Main</option>
+            <option value="review">Review</option>
+        </select>
+    </div>
 
-<div class="container" id="mainSection">
-  <h1>Hotel Varsha Grand</h1>
-  <h1>Rate Your Experience</h1>
-  <input type="text" id="userName" placeholder="Enter your name" />
-  <div class="rating">
-    <input type="radio" id="star5" name="rating" value="5">
-    <label for="star5">★</label>
-    <input type="radio" id="star4" name="rating" value="4">
-    <label for="star4">★</label>
-    <input type="radio" id="star3" name="rating" value="3">
-    <label for="star3">★</label>
-    <input type="radio" id="star2" name="rating" value="2">
-    <label for="star2">★</label>
-    <input type="radio" id="star1" name="rating" value="1">
-    <label for="star1">★</label>
-  </div>
-  <textarea id="comments" placeholder="Write your feedback here..."></textarea>
-  <button id="submitBtn" disabled>Submit</button>
-  <div class="feedback-message" id="feedbackMessage"></div>
-</div>
+    <div class="container" id="mainSection">
+        <h1>Hotel Varsha Grand</h1>
+        <h1>Rate Your Experience</h1>
+        <div class="rating">
+            <input type="radio" id="star5" name="rating" value="5">
+            <label for="star5">★</label>
+            <input type="radio" id="star4" name="rating" value="4">
+            <label for="star4">★</label>
+            <input type="radio" id="star3" name="rating" value="3">
+            <label for="star3">★</label>
+            <input type="radio" id="star2" name="rating" value="2">
+            <label for="star2">★</label>
+            <input type="radio" id="star1" name="rating" value="1">
+            <label for="star1">★</label>
+        </div>
+        <textarea id="comments" placeholder="Write your feedback here..."></textarea>
+        <button id="submitBtn" disabled>Submit</button>
+        <div class="feedback-message" id="feedbackMessage"></div>
+    </div>
 
-<div class="container" id="reviewSection">
-  <h1>Review Feedback</h1>
-  <div id="loginForm">
-    <input type="password" id="password" placeholder="Enter password" />
-    <button id="loginBtn">Login</button>
-  </div>
-  <div id="feedbackList" style="display: none;"></div>
-</div>
+    <div class="container" id="reviewSection">
+        <h1>Review Feedback</h1>
+        <div id="loginForm">
+            <input type="password" id="password" placeholder="Enter password" />
+            <button id="loginBtn">Login</button>
+        </div>
+        <div id="feedbackList" style="display: none;"></div>
+    </div>
 
-<script>
-  const ratingInputs = document.querySelectorAll("input[name='rating']");
-  const submitBtn = document.getElementById("submitBtn");
-  const feedbackMessage = document.getElementById("feedbackMessage");
-  const commentsBox = document.getElementById("comments");
-  const viewSelector = document.getElementById("viewSelector");
-  const mainSection = document.getElementById("mainSection");
-  const reviewSection = document.getElementById("reviewSection");
-  const feedbackList = document.getElementById("feedbackList");
-  const loginForm = document.getElementById("loginForm");
-  const passwordInput = document.getElementById("password");
-  const loginBtn = document.getElementById("loginBtn");
-  const userName = document.getElementById("userName");
+    <script>
+        const ratingInputs = document.querySelectorAll("input[name='rating']");
+        const submitBtn = document.getElementById("submitBtn");
+        const feedbackMessage = document.getElementById("feedbackMessage");
+        const commentsBox = document.getElementById("comments");
+        const viewSelector = document.getElementById("viewSelector");
+        const mainSection = document.getElementById("mainSection");
+        const reviewSection = document.getElementById("reviewSection");
+        const feedbackList = document.getElementById("feedbackList");
+        const loginForm = document.getElementById("loginForm");
+        const passwordInput = document.getElementById("password");
+        const loginBtn = document.getElementById("loginBtn");
 
-  let isSubmitted = false;
+        let isSubmitted = false;
 
-  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx7m1Ri9nMMq9nZl2ZbkVJSs5EELSvnExsA_HEOceVTrp-5ETYSQMNOXTjYoGqhDZHqmg/exec"; // Replace this
+        // Handle section switching
+        menuIcon.addEventListener("click", () => {
+            viewSelector.style.display = viewSelector.style.display === "block" ? "none" : "block";
+        });
 
-  // Toggle menu visibility
-  menuIcon.addEventListener("click", () => {
-    viewSelector.style.display = viewSelector.style.display === "block" ? "none" : "block";
-  });
+        viewSelector.addEventListener("change", () => {
+            document.getElementById("mainSection").style.display = viewSelector.value === "main" ? "block" : "none";
+            document.getElementById("reviewSection").style.display = viewSelector.value === "review" ? "block" : "none";
+            viewSelector.style.display = "none"; // Hide dropdown after selection
+        });
 
-  // Section switch
-  viewSelector.addEventListener("change", () => {
-    mainSection.style.display = viewSelector.value === "main" ? "block" : "none";
-    reviewSection.style.display = viewSelector.value === "review" ? "block" : "none";
-    viewSelector.style.display = "none";
-  });
+        // Handle login
+        loginBtn.addEventListener("click", () => {
+            if (passwordInput.value === "admin123") {
+                loginForm.style.display = "none";
+                feedbackList.style.display = "block";
+                loadFeedback();
+            } else {
+                alert("Incorrect password!");
+            }
+        });
 
-  // Login logic
-  loginBtn.addEventListener("click", () => {
-    if (passwordInput.value === "admin123") {
-      loginForm.style.display = "none";
-      feedbackList.style.display = "block";
-      loadFeedback();
-    } else {
-      alert("Incorrect password!");
-    }
-  });
+        // Handle rating selection
+        ratingInputs.forEach(input => {
+            input.addEventListener("change", () => {
+                if (!isSubmitted) submitBtn.disabled = false;
 
-  // Enable submit and show comments for low ratings
-  ratingInputs.forEach(input => {
-    input.addEventListener("change", () => {
-      if (!isSubmitted) submitBtn.disabled = false;
-      const selectedRating = document.querySelector("input[name='rating']:checked")?.value;
-      commentsBox.style.display = selectedRating <= 3 ? "block" : "none";
-    });
-  });
+                const selectedRating = document.querySelector("input[name='rating']:checked")?.value;
 
-  // Submit feedback to Google Sheets
-  submitBtn.addEventListener("click", () => {
-    if (isSubmitted) return;
+                commentsBox.style.display = selectedRating <= 3 ? "block" : "none";
+            });
+        });
 
-    const selectedRating = document.querySelector("input[name='rating']:checked")?.value;
-    const comments = commentsBox.value.trim();
-    const name = userName.value.trim();
+        // Handle form submission
+        submitBtn.addEventListener("click", () => {
+            if (isSubmitted) return;
 
-    if (!name) {
-      alert("Please enter your name.");
-      return;
-    }
+            isSubmitted = true;
+            const selectedRating = document.querySelector("input[name='rating']:checked")?.value;
+            const comments = commentsBox.value;
 
-    isSubmitted = true;
+            if (selectedRating <= 3) {
+                saveFeedback(selectedRating, comments);
+                feedbackMessage.textContent = "Thank you for your feedback!";
+                feedbackMessage.style.display = "block";
+                disableInteraction();
+            } else {
+                window.location.href = "https://g.page/r/CQTTFoaALEdlEAI/review";
+            }
+        });
 
-    if (selectedRating <= 3) {
-      const data = {
-        name: name,
-        rating: selectedRating,
-        comment: comments
-      };
-
-      fetch(WEB_APP_URL, {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json"
+        // Save feedback to localStorage
+        function saveFeedback(rating, comments) {
+            const feedback = JSON.parse(localStorage.getItem("feedback")) || [];
+            feedback.push({ rating, comments });
+            localStorage.setItem("feedback", JSON.stringify(feedback));
         }
-      })
-      .then(() => {
-        feedbackMessage.textContent = "Thank you for your feedback!";
-        feedbackMessage.style.display = "block";
-        disableInteraction();
-      })
-      .catch(() => {
-        alert("Failed to submit feedback.");
-        isSubmitted = false;
-      });
-    } else {
-      window.location.href = "https://g.page/r/CQTTFoaALEdlEAI/review";
-    }
-  });
 
-  function loadFeedback() {
-    fetch(WEB_APP_URL)
-      .then(res => res.json())
-      .then(data => {
-        feedbackList.innerHTML = data.map(fb =>
-          `<div class="feedback-item">
-            <p><strong>Name:</strong> ${fb.name}</p>
-            <p><strong>Date:</strong> ${new Date(fb.date).toLocaleString()}</p>
-            <p><strong>Rating:</strong> ${fb.rating}</p>
-            <p><strong>Comments:</strong> ${fb.comment}</p>
-          </div>`
-        ).join("");
-      })
-      .catch(err => {
-        feedbackList.innerHTML = "Failed to load feedback.";
-        console.error(err);
-      });
-  }
+        // Load feedback from localStorage
+        function loadFeedback() {
+            const feedback = JSON.parse(localStorage.getItem("feedback")) || [];
+            feedbackList.innerHTML = feedback.map(
+                fb => `<div class="feedback-item"><p><strong>Rating:</strong> ${fb.rating}</p><p><strong>Comments:</strong> ${fb.comments}</p></div>`
+            ).join("");
+        }
 
-  function disableInteraction() {
-    ratingInputs.forEach(input => input.disabled = true);
-    submitBtn.disabled = true;
-    userName.disabled = true;
-    commentsBox.disabled = true;
-  }
-</script>
+        // Disable further interaction after submission
+        function disableInteraction() {
+            ratingInputs.forEach(input => input.disabled = true);
+            submitBtn.disabled = true;
+        }
+    </script>
 </body>
 </html>
-           
-          
-    
