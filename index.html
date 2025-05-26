@@ -190,7 +190,7 @@
         <div id="loginForm">
             <input type="password" id="password" placeholder="Enter password" />
             <button id="loginBtn">Login</button>
-            <button onclick="exportToExcel()">Export to Excel</button>
+            <button id ="exportBtn" onclick="exportToExcel()" disabled>Export to Excel</button>
         </div>
         <div id="feedbackList" style="display: none;"></div>
     </div>
@@ -226,6 +226,7 @@
             if (passwordInput.value === "admin123") {
                 loginForm.style.display = "none";
                 feedbackList.style.display = "block";
+                document.getElementById("ExportBtn").disable d = false;
                 loadFeedback();
             } else {
                 alert("Incorrect password!");
