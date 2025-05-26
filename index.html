@@ -191,10 +191,34 @@
             <input type="password" id="password" placeholder="Enter password" />
             <button id="loginBtn">Login</button>
         </div>
+        <button id="downloadCSVBtn" style="display:none; margin-top: 10px;">Download Reviews (CSV)</button>
         <div id="feedbackList" style="display: none;"></div>
     </div>
 
     <script>
+        // Handle CSV download
+const downloadCSVBtn = document.getElementById("downloadCSVBtn");
+
+downloadCSVBtn.addEventListener("click", () => {
+    const feedback = JSON.parse(localStorage.getItem("feedback")) || [];
+    if (feedback.length === 0) {
+        alert("No feedback available.");
+        return;
+    }
+
+    let csvContent = "Rating,Comments\n";
+    feedback.forEach(fb => {
+        // Escape quotes and commas in comments
+        let comments = fb.comments.replace(/"/g, '""');
+        csvContent += `"${fb.rating}","${comments}"\n`;
+    });
+
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "HotelVarshaGrand_Reviews.csv";
+    link.click();
+});
         const ratingInputs = document.querySelectorAll("input[name='rating']");
         const submitBtn = document.getElementById("submitBtn");
         const feedbackMessage = document.getElementById("feedbackMessage");
