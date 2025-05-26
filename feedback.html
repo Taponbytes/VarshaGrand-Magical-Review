@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Feedback Form</title>
+</head>
+<body>
+  <h2>Submit Your Feedback</h2>
+  <form id="feedbackForm">
+    <label>Name:</label><br>
+    <input type="text" name="name" required><br><br>
+
+    <label>Feedback:</label><br>
+    <textarea name="message" required></textarea><br><br>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <p id="responseMsg"></p>
+
+  <script>
+    const form = document.getElementById("feedbackForm");
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const data = new URLSearchParams();
+      for (const pair of formData) {
+        data.append(pair[0], pair[1]);
+      }
+
+      fetch("https://script.google.com/macros/s/AKfycbx7m1Ri9nMMq9nZl2ZbkVJSs5EELSvnExsA_HEOceVTrp-5ETYSQMNOXTjYoGqhDZHqmg/exec", {
+        method: "POST",
+        body: data
+      })
+      .then(response => response.text())
+      .then(result => {
+        document.getElementById("responseMsg").textContent = "Feedback submitted successfully!";
+        form.reset();
+      })
+      .catch(error => {
+        document.getElementById("responseMsg").textContent = "Error submitting feedback.";
+        console.error("Error:", error);
+      });
+    });
+  </script>
+</body>
+</html>
