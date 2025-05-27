@@ -1,311 +1,388 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rate Us</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            animation: changeBackground 10s infinite;  
-        }
-       
-                
-        @keyframes changeBackground {
-            0% { background-color: #f0f0f0; }
-            25% { background-color: #acd4e6; }
-            50% { background-color: #c7bc92; }
-            75% { background-color: #ceddb0; }
-            100% { background-color: #f0f0f0; }
-        }
-        
-        .view-selector-wrapper {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-        }
-
-        .view-selector-wrapper img {
-            width: 30px;
-            height: 30px;
-            margin-right: 5px;
-        }
-
-        #viewSelector {
-            display: none;
-            position: absolute;
-            top: 50px;
-            left: 10px;
-            z-index: 1;
-            padding: 5px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px
-        }
-        .container {
-            max-width: 400px;
-            width: 100%;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            text-align: center; /* Common style applied to all h1 elements */
-            margin: 10px 0; /* Adds spacing between headings */
-        }
-
-        h1:first-of-type {
-            color: rgb(253, 193, 15); /* yellow for the first heading */
-            font-size: 2.5rem; /* Makes it slightly larger for emphasis */
-            font-weight: bold; /* Ensures it stands out */
-        }
-
-        h1:nth-of-type(2) {
-            color: rgb(21, 21, 21); /* Black for the second heading */
-            font-size: 2rem; /* Slightly smaller than the first heading */
-            font-weight: normal; /* Standard weight for secondary heading */
-        }
-                
-        .rating {
-            display: flex;
-            justify-content: center;
-            direction: rtl;
-            gap: 10px;
-            margin: 20px 0;
-        }
-        .rating input {
-            display: none;
-        }
-        .rating label {
-            font-size: 50px;
-            color: #ccc;
-            cursor: pointer;
-        }
-        .rating input:checked ~ label,
-        .rating label:hover,
-        .rating label:hover ~ label {
-            color: rgb(255, 219, 14);
-        }
-        textarea {
-            font-size: 18px;
-            width: 90%;
-            height: 100px;
-            margin-top: 10px;
-            padding: 10px;
-            border: 2px solid #dddcdc;
-            border-radius: 5px;
-            resize: none;
-            display: none;
-        }
-        button {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            margin-top: 20px;
-            background-color: #4d941e;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:disabled {
-            background-color: #ccc;
-        }
-        #reviewSection {
-            display: none;
-        }
-        #feedbackList {
-            margin-top: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 10px;
-            max-height: 300px;
-            overflow-y: auto;
-        }
-        .feedback-item {
-            font-size: 18px;
-            border-bottom: 1px solid #ddd;
-            padding: 15px 0;
-        }
-        .feedback-item:last-child {
-            border-bottom: none;
-        }
-        .feedback-item p {
-            margin: 0;
-            line-height: 2;
-        }
-        #loginForm {
-            margin-top: 20px;
-            text-align: center;
-        }
-        #loginForm input {
-            width: 80%;
-            padding: 10px;
-            font-size: 18px;
-            margin-bottom: 10px;
-        }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hotel Varsha Grand - Rating</title>
+<style>
+  body {
+    margin: 0; padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: changeBackground 10s infinite;
+    font-family: Arial, sans-serif;
+  }
+  @keyframes changeBackground {
+    0% { background-color: #f0f0f0; }
+    25% { background-color: #acd4e6; }
+    50% { background-color: #c7bc92; }
+    75% { background-color: #ceddb0; }
+    100% { background-color: #f0f0f0; }
+  }
+  .view-selector-wrapper {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    cursor: pointer;
+  }
+  #menuIcon {
+    width: 30px;
+    height: 30px;
+  }
+  #viewSelector {
+    display: none;
+    position: absolute;
+    top: 50px;
+    left: 10px;
+    z-index: 1;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  .container {
+    max-width: 400px;
+    width: 100%;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  h1 {
+    text-align: center;
+    margin: 10px 0;
+  }
+  h1:first-of-type {
+    color: rgb(253, 193, 15);
+    font-size: 2.5rem;
+    font-weight: bold;
+  }
+  h1:nth-of-type(2) {
+    color: rgb(21, 21, 21);
+    font-size: 2rem;
+    font-weight: normal;
+  }
+  .rating {
+    display: flex;
+    justify-content: center;
+    direction: rtl;
+    gap: 10px;
+    margin: 20px 0;
+  }
+  .rating input {
+    display: none;
+  }
+  .rating label {
+    font-size: 50px;
+    color: #ccc;
+    cursor: pointer;
+    user-select: none;
+  }
+  .rating input:checked ~ label,
+  .rating label:hover,
+  .rating label:hover ~ label {
+    color: rgb(255, 219, 14);
+  }
+  textarea {
+    font-size: 18px;
+    width: 90%;
+    height: 100px;
+    margin-top: 10px;
+    padding: 10px;
+    border: 2px solid #dddcdc;
+    border-radius: 5px;
+    resize: none;
+    display: none;
+  }
+  button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #4d941e;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+  }
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  #reviewSection {
+    display: none;
+  }
+  #feedbackList {
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+    font-size: 18px;
+  }
+  .feedback-item {
+    border-bottom: 1px solid #ddd;
+    padding: 15px 0;
+  }
+  .feedback-item:last-child {
+    border-bottom: none;
+  }
+  .feedback-item p {
+    margin: 0;
+    line-height: 2;
+  }
+  .feedback-message {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 10px;
+    color: green;
+  }
+  /* Login dialog style */
+  #loginDialog {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    width: 300px;
+    text-align: center;
+  }
+  #loginDialog input[type="password"] {
+    width: 90%;
+    padding: 10px;
+    font-size: 16px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  #loginDialog button {
+    margin-top: 15px;
+    width: 100%;
+  }
+  #loginError {
+    color: red;
+    margin-top: 10px;
+    font-weight: bold;
+  }
+</style>
 </head>
 <body>
-    <div class="view-selector-wrapper">
-        <img src="images/icon.png" alt="Menu" id="menuIcon">
-        <select id="viewSelector">
-            <option value="main">Main</option>
-            <option value="review">Review</option>
-        </select>
+  <div class="view-selector-wrapper">
+    <img src="https://cdn-icons-png.flaticon.com/512/56/56763.png" alt="Menu" id="menuIcon" />
+    <select id="viewSelector">
+      <option value="main">Main</option>
+      <option value="review">Review</option>
+    </select>
+  </div>
+
+  <div class="container" id="mainSection">
+    <h1>Hotel Varsha Grand</h1>
+    <h1>Rate Your Experience</h1>
+    <div class="rating">
+      <input type="radio" id="star5" name="rating" value="5" />
+      <label for="star5">★</label>
+      <input type="radio" id="star4" name="rating" value="4" />
+      <label for="star4">★</label>
+      <input type="radio" id="star3" name="rating" value="3" />
+      <label for="star3">★</label>
+      <input type="radio" id="star2" name="rating" value="2" />
+      <label for="star2">★</label>
+      <input type="radio" id="star1" name="rating" value="1" />
+      <label for="star1">★</label>
     </div>
+    <textarea id="comments" placeholder="Write your feedback here..."></textarea>
+    <button id="submitBtn" disabled>Submit</button>
+    <div class="feedback-message" id="feedbackMessage"></div>
+  </div>
 
-    <div class="container" id="mainSection">
-        <h1>Hotel Varsha Grand</h1>
-        <h1>Rate Your Experience</h1>
-        <div class="rating">
-            <input type="radio" id="star5" name="rating" value="5">
-            <label for="star5">★</label>
-            <input type="radio" id="star4" name="rating" value="4">
-            <label for="star4">★</label>
-            <input type="radio" id="star3" name="rating" value="3">
-            <label for="star3">★</label>
-            <input type="radio" id="star2" name="rating" value="2">
-            <label for="star2">★</label>
-            <input type="radio" id="star1" name="rating" value="1">
-            <label for="star1">★</label>
-        </div>
-        <textarea id="comments" placeholder="Write your feedback here..."></textarea>
-        <button id="submitBtn" disabled>Submit</button>
-        <div class="feedback-message" id="feedbackMessage"></div>
-    </div>
+  <div class="container" id="reviewSection">
+    <h1>Review Feedback</h1>
+    <button id="exportBtn">Export to Excel</button>
+    <button id="deleteBtn">Delete All Feedback</button>
+    <div id="feedbackList"></div>
+  </div>
 
-    <div class="container" id="reviewSection">
-        <h1>Review Feedback</h1>
-        <div id="loginForm">
-            <input type="password" id="password" placeholder="Enter password" />
-            <button id="loginBtn">Login</button>
-            <button id ="exportBtn" onclick="exportToExcel()" disabled>Export to Excel</button>
-        </div>
-        <div id="feedbackList" style="display: none;"></div>
-    </div>
+  <!-- Login dialog -->
+  <div id="loginDialog">
+    <h2>Enter Password</h2>
+    <input type="password" id="passwordInput" placeholder="Password" />
+    <button id="loginBtn">Login</button>
+    <div id="loginError"></div>
+  </div>
 
-    <script>
-        const ratingInputs = document.querySelectorAll("input[name='rating']");
-        const submitBtn = document.getElementById("submitBtn");
-        const feedbackMessage = document.getElementById("feedbackMessage");
-        const commentsBox = document.getElementById("comments");
-        const viewSelector = document.getElementById("viewSelector");
-        const mainSection = document.getElementById("mainSection");
-        const reviewSection = document.getElementById("reviewSection");
-        const feedbackList = document.getElementById("feedbackList");
-        const loginForm = document.getElementById("loginForm");
-        const passwordInput = document.getElementById("password");
-        const loginBtn = document.getElementById("loginBtn");
+<script>
+  const ratingInputs = document.querySelectorAll("input[name='rating']");
+  const submitBtn = document.getElementById("submitBtn");
+  const feedbackMessage = document.getElementById("feedbackMessage");
+  const commentsBox = document.getElementById("comments");
+  const viewSelector = document.getElementById("viewSelector");
+  const mainSection = document.getElementById("mainSection");
+  const reviewSection = document.getElementById("reviewSection");
+  const feedbackList = document.getElementById("feedbackList");
+  const exportBtn = document.getElementById("exportBtn");
+  const deleteBtn = document.getElementById("deleteBtn");
+  const menuIcon = document.getElementById("menuIcon");
+  const loginDialog = document.getElementById("loginDialog");
+  const passwordInput = document.getElementById("passwordInput");
+  const loginBtn = document.getElementById("loginBtn");
+  const loginError = document.getElementById("loginError");
 
-        let isSubmitted = false;
+  const OWNER_PASSWORD = "admin123";  // change this password as you like
 
-        // Handle section switching
-        menuIcon.addEventListener("click", () => {
-            viewSelector.style.display = viewSelector.style.display === "block" ? "none" : "block";
-        });
+  let isSubmitted = false;
 
-        viewSelector.addEventListener("change", () => {
-            document.getElementById("mainSection").style.display = viewSelector.value === "main" ? "block" : "none";
-            document.getElementById("reviewSection").style.display = viewSelector.value === "review" ? "block" : "none";
-            viewSelector.style.display = "none"; // Hide dropdown after selection
-        });
+  // Toggle dropdown on menu icon click
+  menuIcon.addEventListener("click", () => {
+    viewSelector.style.display = viewSelector.style.display === "block" ? "none" : "block";
+  });
 
-        // Handle login
-        loginBtn.addEventListener("click", () => {
-            if (passwordInput.value === "admin123") {
-                loginForm.style.display = "none";
-                feedbackList.style.display = "block";
-                document.getElementById("ExportBtn").disable d = false;
-                loadFeedback();
-            } else {
-                alert("Incorrect password!");
-            }
-        });
+  // Handle view selection
+  viewSelector.addEventListener("change", () => {
+    if (viewSelector.value === "main") {
+      mainSection.style.display = "block";
+      reviewSection.style.display = "none";
+      loginDialog.style.display = "none";
+      clearLogin();
+    } else if (viewSelector.value === "review") {
+      // Show login dialog before showing review
+      loginDialog.style.display = "block";
+      mainSection.style.display = "none";
+      reviewSection.style.display = "none";
+      clearLogin();
+    }
+    viewSelector.style.display = "none"; // hide dropdown after selection
+  });
 
-        // Handle rating selection
-        ratingInputs.forEach(input => {
-            input.addEventListener("change", () => {
-                if (!isSubmitted) submitBtn.disabled = false;
+  // Clear login input and error
+  function clearLogin() {
+    passwordInput.value = "";
+    loginError.textContent = "";
+  }
 
-                const selectedRating = document.querySelector("input[name='rating']:checked")?.value;
+  // Login button handler
+  loginBtn.addEventListener("click", () => {
+    const enteredPassword = passwordInput.value;
+    if (enteredPassword === OWNER_PASSWORD) {
+      // Password correct, show review section
+      loginDialog.style.display = "none";
+      reviewSection.style.display = "block";
+      loadFeedback();
+    } else {
+      loginError.textContent = "Incorrect password!";
+    }
+  });
 
-                commentsBox.style.display = selectedRating <= 3 ? "block" : "none";
-            });
-        });
+  // Rating selection logic
+  ratingInputs.forEach(input => {
+    input.addEventListener("change", () => {
+      if (!isSubmitted) submitBtn.disabled = false;
 
-        // Handle form submission
-        submitBtn.addEventListener("click", () => {
-            if (isSubmitted) return;
+      const selectedRating = parseInt(document.querySelector("input[name='rating']:checked")?.value || 0, 10);
 
-            isSubmitted = true;
-            const selectedRating = document.querySelector("input[name='rating']:checked")?.value;
-            const comments = commentsBox.value;
+      if (selectedRating <= 3) {
+        commentsBox.style.display = "block";
+      } else {
+        commentsBox.style.display = "none";
+      }
+    });
+  });
 
-            if (selectedRating <= 3) {
-                saveFeedback(selectedRating, comments);
-                feedbackMessage.textContent = "Thank you for your feedback!";
-                feedbackMessage.style.display = "block";
-                disableInteraction();
-            } else {
-                window.location.href = "https://g.page/r/CQTTFoaALEdlEAI/review";
-            }
-        });
+  // Submit feedback
+  submitBtn.addEventListener("click", () => {
+    if (isSubmitted) return;
 
-        // Save feedback to localStorage
-        function saveFeedback(rating, comments) {
-            const feedback = JSON.parse(localStorage.getItem("feedback")) || [];
-            feedback.push({ rating, comments });
-            localStorage.setItem("feedback", JSON.stringify(feedback));
-        }
+    const selectedRating = parseInt(document.querySelector("input[name='rating']:checked")?.value || 0, 10);
 
-        // Load feedback from localStorage
-        function loadFeedback() {
-            const feedback = JSON.parse(localStorage.getItem("feedback")) || [];
-            feedbackList.innerHTML = feedback.map(
-                fb => `<div class="feedback-item"><p><strong>Rating:</strong> ${fb.rating}</p><p><strong>Comments:</strong> ${fb.comments}</p></div>`
-            ).join("");
-        }
-
-        // Disable further interaction after submission
-        function disableInteraction() {
-            ratingInputs.forEach(input => input.disabled = true);
-            submitBtn.disabled = true;
-        }
-        function exportToExcel() {
-    const feedback = JSON.parse(localStorage.getItem("feedback")) || [];
-
-    if (feedback.length === 0) {
-        alert("No feedback to export.");
-        return;
+    if (selectedRating === 0) {
+      alert("Please select a rating.");
+      return;
     }
 
+    if (selectedRating <= 3 && commentsBox.value.trim() === "") {
+      alert("Please provide comments for ratings 3 or below.");
+      return;
+    }
+
+    isSubmitted = true;
+
+    if (selectedRating <= 3) {
+      saveFeedback(selectedRating, commentsBox.value.trim());
+      feedbackMessage.textContent = "Thank you for your feedback!";
+      feedbackMessage.style.color = "green";
+      disableInteraction();
+    } else {
+      // Redirect to Google review link for rating 4 or 5
+      window.location.href = "https://g.page/r/CQTTFoaALEdlEAI/review";
+    }
+  });
+
+  // Save feedback to localStorage
+  function saveFeedback(rating, comments) {
+    const feedback = JSON.parse(localStorage.getItem("feedback")) || [];
+    feedback.push({ rating, comments });
+    localStorage.setItem("feedback", JSON.stringify(feedback));
+  }
+
+  // Load feedback to review list
+  function loadFeedback() {
+    const feedback = JSON.parse(localStorage.getItem("feedback")) || [];
+    if (feedback.length === 0) {
+      feedbackList.innerHTML = "<p>No feedback yet.</p>";
+    } else {
+      feedbackList.innerHTML = feedback.map(fb => `
+        <div class="feedback-item">
+          <p><strong>Rating:</strong> ${fb.rating}</p>
+          <p><strong>Comments:</strong> ${fb.comments || "No comments"}</p>
+        </div>
+      `).join("");
+    }
+  }
+
+  // Disable inputs after submit
+  function disableInteraction() {
+    ratingInputs.forEach(input => input.disabled = true);
+    commentsBox.disabled = true;
+    submitBtn.disabled = true;
+  }
+
+  // Export feedback as CSV
+  exportBtn.addEventListener("click", () => {
+    const feedback = JSON.parse(localStorage.getItem("feedback")) || [];
+    if (feedback.length === 0) {
+      alert("No feedback to export.");
+      return;
+    }
     let csvContent = "Rating,Comments\n";
     feedback.forEach(entry => {
-        const safeComment = entry.comments.replace(/"/g, '""'); // Escape quotes
-        csvContent += `${entry.rating},"${safeComment}"\n`;
+      const safeComment = entry.comments.replace(/"/g, '""');
+      csvContent += `${entry.rating},"${safeComment}"\n`;
     });
-
     const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
-
     const link = document.createElement("a");
     link.setAttribute("href", url);
     link.setAttribute("download", "Hotel_Varsha_Reviews.csv");
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-}
-    </script>
+  });
+
+  // Delete all feedback
+  deleteBtn.addEventListener("click", () => {
+    if (confirm("Are you sure you want to delete all feedback? This action cannot be undone.")) {
+      localStorage.removeItem("feedback");
+      feedbackList.innerHTML = "<p>No feedback yet.</p>";
+    }
+  });
+</script>
 </body>
 </html>
